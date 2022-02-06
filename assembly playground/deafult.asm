@@ -11,9 +11,11 @@ STDOUT      equ 1
 ; Initialised data goes here
 ;
 SECTION .data
-hello           db  "Hello World!", 10      ; char *
+hello           db  "Welcome to my dumpster", 10      ; char *
 hello_len       equ $-hello                 ; size_t
 
+test            db "Test", 20
+test_len        equ $-test
 ;
 ; Code goes here
 ;
@@ -25,6 +27,8 @@ _start:
     mov     rdi, STDOUT
     mov     rsi, hello
     mov     rdx, hello_len
+    mov     rsi, test
+    mov     rdx, test_len
     syscall
     push    rax
 
@@ -32,4 +36,5 @@ _start:
     mov     rax, SYS_EXIT
     pop     rdi
     sub     rdi, hello_len
+    sub     rdi, test_len
     syscall
